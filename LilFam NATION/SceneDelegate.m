@@ -12,6 +12,35 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    
+    
+    
+    //Navigation Bar цвет кнопки, если там текст
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    //цвет Navigation Bar
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    
+    //цвет Title Navigation Bar
+    [[UINavigationBar appearance] setTitleTextAttributes:
+    @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *leftView = [mainStoryboard instantiateViewControllerWithIdentifier:@"LeftMenu"];
+    UIViewController *centerView = [mainStoryboard instantiateViewControllerWithIdentifier:@"CentralWindow"];
+    
+    UINavigationController *leftNav = [[UINavigationController alloc] initWithRootViewController:leftView];
+    UINavigationController *centerNav = [[UINavigationController alloc] initWithRootViewController:centerView];
+    
+    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
+    
+    self.drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModePanningCenterView;
+    self.drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModePanningCenterView;
+    
+    _window.rootViewController = self.drawerController;
+    [_window makeKeyAndVisible];
+     
 }
 
 

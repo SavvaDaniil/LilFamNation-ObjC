@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AVFoundation/AVFoundation.h"
 #import <CoreData/CoreData.h>
+#import "MMDrawerController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
+
+
+@property (strong, nonatomic) UIWindow * window;
+@property (strong, nonatomic) MMDrawerController *drawerController;
+
+@property (nonatomic, strong) NSString *id_of_group_and_date_of_action;
+
 
 - (void)saveContext;
 

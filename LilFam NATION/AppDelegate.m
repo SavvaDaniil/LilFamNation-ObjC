@@ -17,7 +17,53 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    //Navigation Bar цвет кнопки, если там текст
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    //цвет Navigation Bar
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:49/255.0 green:49/255.0 blue:49/255.0 alpha:1.0]];
+    
+    //чтобы цвет Navigation bar был к требуемому
+    //self.navigationController.navigationBar.translucent = NO;
+    
+    
+    //цвет Title Navigation Bar
+    [[UINavigationBar appearance] setTitleTextAttributes:
+    @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *leftView = [mainStoryboard instantiateViewControllerWithIdentifier:@"LeftMenu"];
+    UIViewController *centerView = [mainStoryboard instantiateViewControllerWithIdentifier:@"CentralWindow"];
+    
+    UINavigationController *leftNav = [[UINavigationController alloc] initWithRootViewController:leftView];
+    UINavigationController *centerNav = [[UINavigationController alloc] initWithRootViewController:centerView];
+    
+    self.drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
+    
+    self.drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModePanningCenterView;
+    self.drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModePanningCenterView;
+    
+    _window.rootViewController = self.drawerController;
+    [_window makeKeyAndVisible];
+    
+    //чтобы музыка не отключалась при запуске приложения
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+
+
+    
     return YES;
+}
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    NSLog(@"app will enter foreground");
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    NSLog(@"app did become active");
 }
 
 
@@ -82,5 +128,7 @@
         abort();
     }
 }
+
+
 
 @end
